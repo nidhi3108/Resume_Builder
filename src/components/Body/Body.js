@@ -24,17 +24,17 @@ const Body = () => {
     [sections.workExp]:{
       id:sections.workExp,
       title:sections.workExp,
-      detail:[],
+      details:[{title: "held"}],
     },
     [sections.project]:{
       id:sections.project,
       title:sections.project,
-      detail:[],
+      details:[],
     },
     [sections.education]:{
       id:sections.education,
       title:sections.education,
-      detail:[]
+      details:[]
     },
     [sections.achievements]:{
       id:sections.achievements,
