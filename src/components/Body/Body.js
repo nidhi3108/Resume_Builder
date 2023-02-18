@@ -18,37 +18,38 @@ const Body = () => {
   const [resumeInformation, setResumeInformation] = useState({
     [sections.basicInfo]:{
       id:sections.basicInfo,
-      title:sections.basicInfo,
+      sectionTitle:sections.basicInfo,
       detail:{},
     },
     [sections.workExp]:{
       id:sections.workExp,
-      title:sections.workExp,
-      details:[{title: "held"}],
+      sectionTitle:sections.workExp,
+      details:[{title: "work",certificationLink:"nidhi"}],
+
     },
     [sections.project]:{
       id:sections.project,
-      title:sections.project,
+      sectionTitle:sections.project,
       details:[],
     },
     [sections.education]:{
       id:sections.education,
-      title:sections.education,
+      sectionTitle:sections.education,
       details:[]
     },
     [sections.achievements]:{
       id:sections.achievements,
-      title:sections.achievements,
+      sectionTitle:sections.achievements,
       points:[],
     },
     [sections.summary]:{
       id:sections.summary,
-      title:sections.summary,
+      sectionTitle:sections.summary,
       detail:"",
     },
     [sections.other]:{
     id:sections.other,
-      title:sections.other,
+      sectionTitle:sections.other,
       detail:"",
     },
   });
