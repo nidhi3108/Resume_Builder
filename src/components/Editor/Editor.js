@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import InputControl from '../inputControl/InputControl'
+import InputControl from '../InputControl/InputControl'
 import styles from './Editor.module.css'
-// import   X from "X";
+import  {X} from "react-feather";
 
 
 const Editor = (props) => {
@@ -15,7 +15,7 @@ const Editor = (props) => {
         information[sections[Object.keys(sections)[0]]]
     )
 
-    const [activeDetailIndex, setActiveDetailIndex] = useState();
+    const [activeDetailIndex, setActiveDetailIndex] = useState(0);
 
 
     const [sectionTitle, setsectionTitle] = useState(
@@ -29,7 +29,7 @@ const Editor = (props) => {
        phone:activeInformation?.detail?.phone||"",
        email:activeInformation?.detail?.email||"",
 
-})
+});
 
 const handlePonitUpdate=(value,index)=>{
     const tempValues={...values};
@@ -329,7 +329,7 @@ const otherBody=(
                 }
                 props.setInformation(prev=>({...prev,[sections.basicInfo]
                     :{...prev[sections.basicInfo],
-                        details:tempDetail,
+                        detail:tempDetail,
                         sectionTitle
                     
                     }}))
@@ -462,14 +462,14 @@ const otherBody=(
         location:activeInfo?.details ? activeInfo?.details[0]?.location||"" : "",
         startDate:activeInfo?.details ? activeInfo?.details[0]?.startDate||"" : "",
         endDate:activeInfo?.details ? activeInfo?.details[0]?.endDate||"" : "",
-        points:activeInfo?.details ? activeInfo?.details[0]?.points ? [...activeInformation?.detail[0]?.points]:"" : activeInformation?.points?[...activeInformation.points]: "",
-        title:activeInfo?.details?activeInfo?.details[0]?.title||"":activeInformation?.detail?.title||"",
+        points:activeInfo?.details ? activeInfo?.details[0]?.points ? [...activeInfo.details[0]?.points]:"" : activeInfo?.points?[...activeInfo.points]: "",
+        title:activeInfo?.details?activeInfo?.details[0]?.title||"":activeInfo?.detail?.title||"",
        linkedin:activeInfo?.details?.linkedin||"",
-       github:activeInfo?.details?activeInfo?.details[0]?.github||"":activeInformation?.detail?.github||"",
+       github:activeInfo?.details?activeInfo?.details[0]?.github||"":activeInfo?.detail?.github||"",
        phone:activeInfo?.details?.phone||"",
        email:activeInfo?.details?.email||"",
-       summary:typeof activeInfo?.detail!==Object?activeInfo.detail:"",
-       other:typeof activeInfo?.detail!==Object?activeInfo.detail:"",
+       summary:typeof activeInfo?.detail!=="Object"?activeInfo.detail:"",
+       other:typeof activeInfo?.detail!=="Object"?activeInfo.detail:"",
     })
  },[activeSectionKey])
 
@@ -504,7 +504,7 @@ const otherBody=(
                 <p>
                     {sections[activeSectionKey]} {index+1} 
                     </p>
-                {/* <X/> */}
+                <X/>
             </div>
               ))
               :" " }
