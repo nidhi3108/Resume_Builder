@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Body.module.css'
 import {ArrowDown} from 'react-feather'
 import Editor from '../Editor/Editor'
@@ -24,7 +24,7 @@ const Body = () => {
     [sections.workExp]:{
       id:sections.workExp,
       sectionTitle:sections.workExp,
-      details:[{title: "work",certificationLink:"nidhi"}],
+      details:[{title: "",certificationLink:"nidhi"},],
 
     },
     [sections.project]:{
@@ -54,6 +54,10 @@ const Body = () => {
     },
   });
 
+  useEffect(()=>{
+     console.log(resumeInformation);
+  },[resumeInformation])
+
 
 
   return (
@@ -74,7 +78,7 @@ const Body = () => {
         <button>Download <ArrowDown/></button>
         </div>
         <div className={styles.main}>
-          <Editor sections={sections} information={resumeInformation}/>
+          <Editor sections={sections} information={resumeInformation} setInformation={setResumeInformation}/>
         </div>
     </div>
   )

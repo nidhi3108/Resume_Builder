@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import InputControl from '../inputControl/InputControl'
 import styles from './Editor.module.css'
+// import   X from "X";
+
+
 const Editor = (props) => {
     const sections=props.sections
     const information=props.information
 
 
     const [activeSectionKey, setActiveSectionKey] = useState(Object.keys(sections)[0])
+
     const [activeInformation, setActiveInformation] = useState(
         information[sections[Object.keys(sections)[0]]]
     )
+
+    const [activeDetailIndex, setActiveDetailIndex] = useState();
+
+
     const [sectionTitle, setsectionTitle] = useState(
         sections[Object.keys(sections)[0]]
     )
@@ -25,6 +33,7 @@ const Editor = (props) => {
 
 const handlePonitUpdate=(value,index)=>{
     const tempValues={...values};
+    if(!Array.isArray(tempValues.points)) tempValues.points =[];
     tempValues.points[index]=value;
     setValues(tempValues);
 }
@@ -38,14 +47,14 @@ const workExpBody=(
              <InputControl
              label="Title"
              placeholder="Enter title eg. Frontend developer"
-             defaultValue={values.title}
+             value={values.title}
              onChange={(event)=>setValues(prev=>({...prev,title:event.target.value}))}
              />
              
              <InputControl
              label="Company Name"
              placeholder="Enter company name eg. paytm"
-             defaultValue={values.companyName}
+             value={values.companyName}
              onChange={(event)=>setValues(prev=>({...prev,companyName:event.target.value}))}
              />
 
@@ -54,13 +63,13 @@ const workExpBody=(
              <InputControl
              label="Certificate Link"
              placeholder="Enter Certificate Link"
-             defaultValue={values.certificationLink}
+             value={values.certificationLink}
              onChange={(event)=>setValues(prev=>({...prev,certificationLink:event.target.value}))}
              />
              <InputControl
              label="Location"
              placeholder="Enter location eg. Lucknow"
-             defaultValue={values.location}
+             value={values.location}
              onChange={(event)=>setValues(prev=>({...prev,location:event.target.value}))}
              />
 
@@ -70,7 +79,7 @@ const workExpBody=(
              label="Start Date"
              type='date'
              placeholder="Enter Start date of work"
-             defaultValue={values.startDate}
+             value={values.startDate}
              onChange={(event)=>setValues(prev=>({...prev,startDate:event.target.value}))}
              />
              
@@ -78,22 +87,22 @@ const workExpBody=(
              label="End Date"
              type='date'
              placeholder="Enter end date of work"
-             defaultValue={values.endDate}
+             value={values.endDate}
              onChange={(event)=>setValues(prev=>({...prev,endDate:event.target.value}))}
              />     
         </div>
         <div className={styles.column}>
             <label className={styles.label}>Enter work description</label>
             <InputControl placeholder="Line 1"
-            defaultValue={values.points?values.points[0]:""}
+            value={values.points?values.points[0]:""}
             onChange={(event)=>handlePonitUpdate(event.target.value,0)}
             />
             <InputControl placeholder="Line 2"
-            defaultValue={values.points?values.points[1]:""}
+            value={values.points?values.points[1]:""}
             onChange={(event)=>handlePonitUpdate(event.target.value,1)}
             />
             <InputControl placeholder="Line 3"
-            defaultValue={values.points?values.points[2]:""}
+            value={values.points?values.points[2]:""}
             onChange={(event)=>handlePonitUpdate(event.target.value,2)}
             />
         </div>
@@ -108,41 +117,41 @@ const workExpBody=(
              label="Title"
              placeholder="Enter title eg. Chat application"
              onChange={(event)=>setValues(prev=>({...prev,title:event.target.value}))}
-             defaultValue={values.title}/>
+             value={values.title}/>
         </div>
         <InputControl
             label="Overview"
             placeholder="Enter Basic overview of project"
             onChange={(event)=>setValues(prev=>({...prev,overview:event.target.value}))}
-            defaultValue={values.overview}
+            value={values.overview}
             />
         <div className={styles.row}>
              <InputControl
              label="Deployed Link"
              placeholder="Enter deployed link of project"
              onChange={(event)=>setValues(prev=>({...prev,link:event.target.value}))}
-             defaultValue={values.link}
+             value={values.link}
              />
              <InputControl
              label="Github Link"
              placeholder="Enter github link of project"
              onChange={(event)=>setValues(prev=>({...prev,github:event.target.value}))}
-             defaultValue={values.github}
+             value={values.github}
              />
         </div>
         <div className={styles.column}>
             <label className={styles.label}>Enter Project description</label>
             <InputControl placeholder="Line 1"
              onChange={(event)=>handlePonitUpdate(event.target.value,0)}
-             defaultValue={values.points?values.points[0]:""}
+             value={values.points?values.points[0]:""}
              />
             <InputControl placeholder="Line 2"
              onChange={(event)=>handlePonitUpdate(event.target.value,1)}
-             defaultValue={values.points?values.points[1]:""}
+             value={values.points?values.points[1]:""}
              />
             <InputControl placeholder="Line 3"
              onChange={(event)=>handlePonitUpdate(event.target.value,3)}
-             defaultValue={values.points?values.points[2]:""}
+             value={values.points?values.points[2]:""}
              />
         </div>
         </div>
@@ -157,14 +166,14 @@ const educationBody=(
              label="Title"
              placeholder="Enter title eg. B.tech"
              onChange={(event)=>setValues(prev=>({...prev,title:event.target.value}))}
-             defaultValue={values.title}
+             value={values.title}
              />
         </div>
         <InputControl
             label="College/School Name"
             placeholder="Enter name of your college school"
             onChange={(event)=>setValues(prev=>({...prev,college:event.target.value}))}
-            defaultValue={values.college}
+            value={values.college}
         />
  
             <div className={styles.row}>
@@ -173,7 +182,7 @@ const educationBody=(
              type='date'
              placeholder="Enter Start date of this education"
              onChange={(event)=>setValues(prev=>({...prev,startDate:event.target.value}))}
-             defaultValue={values.startDate}
+             value={values.startDate}
              />
              
              <InputControl
@@ -181,7 +190,7 @@ const educationBody=(
              type='date'
              placeholder="Enter end date this education"
              onChange={(event)=>setValues(prev=>({...prev,endDate:event.target.value}))}
-             defaultValue={values.endDate}
+             value={values.endDate}
              />     
         </div>
         </div>
@@ -195,24 +204,24 @@ const basicInfoBody=(
          label="Name"
          placeholder="Enter your full name eg. Nidhi Verma"
          onChange={(event)=>setValues(prev=>({...prev,name:event.target.value}))}
-         defaultValue={values.name}
+         value={values.name}
          />
          <InputControl
          label="Title"
          placeholder="Enter your title eg. Frontend developer"
          onChange={(event)=>setValues(prev=>({...prev,title:event.target.value}))}
-         defaultValue={values.title}
+         value={values.title}
          />
     </div>
     <div className={styles.row}>
          <InputControl
          label="Linkedin Link"
-         defaultValue={values.linkedin}
+         value={values.linkedin}
          onChange={(event)=>setValues(prev=>({...prev,linkedin:event.target.value}))}
          placeholder="Enter your linkedin profile Link"/>
          <InputControl
          label="Github Link"
-         defaultValue={values.github}
+         value={values.github}
          onChange={(event)=>setValues(prev=>({...prev,github:event.target.value}))}
          placeholder="Enter your github profile Link"/>
 
@@ -220,13 +229,13 @@ const basicInfoBody=(
     <div className={styles.row}>
          <InputControl
          label="Email"
-         defaultValue={values.email}
+         value={values.email}
          onChange={(event)=>setValues(prev=>({...prev,email:event.target.value}))}
          placeholder="Enter your email"/>
          
          <InputControl
          label="phone"
-         defaultValue={values.phone}
+         value={values.phone}
          onChange={(event)=>setValues(prev=>({...prev,phone:event.target.value}))}
          placeholder="Enter your phone number"/>     
     </div>
@@ -239,19 +248,19 @@ const achievementsBody=(
     <div className={styles.column}>
         <label className={styles.label}>List your achievemnets</label>
          <InputControl placeholder="Line 1"
-            defaultValue={values.points?values.points[0]:""}
+            value={values.points?values.points[0]:""}
             onChange={(event)=>handlePonitUpdate(event.target.value,0)}
             />
             <InputControl placeholder="Line 2"
-            defaultValue={values.points?values.points[1]:""}
+            value={values.points?values.points[1]:""}
             onChange={(event)=>handlePonitUpdate(event.target.value,1)}
             />
             <InputControl placeholder="Line 3"
-            defaultValue={values.points?values.points[2]:""}
+            value={values.points?values.points[2]:""}
             onChange={(event)=>handlePonitUpdate(event.target.value,2)}
             />
             <InputControl placeholder="Line 4"
-            defaultValue={values.points?values.points[3]:""}
+            value={values.points?values.points[3]:""}
             onChange={(event)=>handlePonitUpdate(event.target.value,3)}
             />
     </div>
@@ -263,7 +272,7 @@ const summaryBody=(
     <div className={styles.detail}>
          <InputControl
          label="Summary"
-         defaultValue={values.summary}
+         value={values.summary}
          onChange={(event)=>setValues(prev=>({...prev,summary:event.target.value}))}
          placeholder="Enter objective/summary"/>
     </div>
@@ -276,7 +285,7 @@ const otherBody=(
          <InputControl
          label="Other"
          onChange={(event)=>setValues(prev=>({...prev,other:event.target.value}))}
-         defaultValue={values.other}
+         value={values.other}
          placeholder="Enter something"/>
     </div>
 )
@@ -306,28 +315,167 @@ const otherBody=(
 
  //save button
  const handleSubmission=()=>{
-    console.log(values);
+    // console.log(values);
+    switch(sections[activeSectionKey]){
+        case sections.basicInfo:
+            {
+                const tempDetail={
+                    name:values.name,
+                    title:values.title,
+                    linkedin:values.linkedin,
+                    github:values.github,
+                    email:values.email,
+                    phone:values.phone,
+                }
+                props.setInformation(prev=>({...prev,[sections.basicInfo]
+                    :{...prev[sections.basicInfo],
+                        details:tempDetail,
+                        sectionTitle
+                    
+                    }}))
+
+                    break;
+            }
+        case sections.workExp:
+            {
+                const tempDetail={
+                    certificationLink:values.certificationLink,
+                    title:values.title,
+                    startDate:values.startDate,
+                    endDate:values.endDate,
+                    companyName:values.companyName,
+                    location:values.location,
+                    points:values.points,
+                };
+
+                const tempDetails=[...information[sections.workExp]?.details]
+                tempDetails[activeDetailIndex]= tempDetail;
+
+                props.setInformation(prev=>({...prev,[sections.workExp]
+                    :{...prev[sections.workExp],
+                        details:tempDetail,
+                        sectionTitle,
+
+                    }}))
+                        
+                    break;
+            }  
+
+            case sections.project:
+            {
+                const tempDetail={
+                    link:values.link,
+                    title:values.title,
+                    overview:values.overview,
+                    github:values.github,
+                    points:values.points,
+                }
+
+                const tempDetails=[...information[sections.project]?.details]
+                tempDetails[activeDetailIndex]= tempDetail;
+
+                props.setInformation(prev=>({...prev,[sections.project]
+                    :{...prev[sections.project],
+                        details:tempDetail,
+                        sectionTitle,
+
+                    }}))
+                        
+                    break;
+            }  
+
+            case sections.education:
+            {
+                const tempDetail={
+                    title:values.title,
+                    college:values.college,
+                    startDate:values.startDate,
+                    endDate:values.endDate,
+                }
+
+                const tempDetails=[...information[sections.education]?.details]
+                tempDetails[activeDetailIndex]= tempDetail;
+
+                props.setInformation(prev=>({...prev,[sections.education]
+                    :{...prev[sections.education],
+                        details:tempDetail,
+                        sectionTitle,
+
+                    }}))
+                        
+                    break;
+            }  
+
+
+            case sections.achievement:
+            {
+                const tempPoints=values.points;
+                props.setInformation(prev=>({...prev,[sections.achievement]
+                    :{...prev[sections.achievement],
+                        points:tempPoints,
+                        sectionTitle,
+
+                    }}))
+                        
+                    break;
+            }
+            
+            case sections.summary:
+            {
+                const tempDetail=values.summary;
+                props.setInformation(prev=>({...prev,[sections.summary]
+                    :{...prev[sections.summary],
+                        detail:tempDetail,
+                        sectionTitle,
+
+                    }}))
+                        
+                    break;
+            }
+            
+            case sections.other:
+            {
+                const tempDetail=values.other;
+                props.setInformation(prev=>({...prev,[sections.other]
+                    :{...prev[sections.other],
+                        detail:tempDetail,
+                        sectionTitle,
+
+                    }}))
+                        
+                    break;
+            }
+     }
  }
 
  useEffect(()=>{
     const activeInfo=information[sections[activeSectionKey]];
      setActiveInformation(activeInfo)
     setsectionTitle(sections[activeSectionKey])
+    setActiveDetailIndex(0);
     setValues({
-        name:activeInformation?.detail?.name||"",
-        overview:activeInformation?.detail ? activeInformation?.detail[0]?.overview||"" : "",
-        link:activeInformation?.detail ? activeInformation?.detail[0]?.link||"" : "",
-        certificationLink:activeInformation?.detail ? activeInformation?.detail[0]?.certificationLink||"" : "",
-        startDate:activeInformation?.detail ? activeInformation?.detail[0]?.startDate||"" : "",
-        endDate:activeInformation?.detail ? activeInformation?.detail[0]?.endDate||"" : "",
-        points:activeInformation?.detail ? activeInformation?.detail[0]?.points ? [...activeInformation?.detail[0]?.points]:"" : activeInformation?.points?[...activeInformation.points]: "",
-        title:activeInformation?.detail?activeInformation?.detail[0]?.title||"":activeInformation?.detail?.title||"",
-       linkedin:activeInformation?.detail?.linkedin||"",
-       github:activeInformation?.detail?activeInformation?.detail[0]?.github||"":activeInformation?.detail?.github||"",
-       phone:activeInformation?.detail?.phone||"",
-       email:activeInformation?.detail?.email||"",
+        name:activeInfo?.details?.name||"",
+        overview:activeInfo?.details ? activeInfo?.details[0]?.overview||"" : "",
+        link:activeInfo?.details ? activeInfo?.details[0]?.link||"" : "",
+        certificationLink:activeInfo?.details ? activeInfo?.details[0]?.certificationLink||"" : "",
+        companyName:activeInfo?.details ? activeInfo?.details[0]?.companyName||"" : "",
+        location:activeInfo?.details ? activeInfo?.details[0]?.location||"" : "",
+        startDate:activeInfo?.details ? activeInfo?.details[0]?.startDate||"" : "",
+        endDate:activeInfo?.details ? activeInfo?.details[0]?.endDate||"" : "",
+        points:activeInfo?.details ? activeInfo?.details[0]?.points ? [...activeInformation?.detail[0]?.points]:"" : activeInformation?.points?[...activeInformation.points]: "",
+        title:activeInfo?.details?activeInfo?.details[0]?.title||"":activeInformation?.detail?.title||"",
+       linkedin:activeInfo?.details?.linkedin||"",
+       github:activeInfo?.details?activeInfo?.details[0]?.github||"":activeInformation?.detail?.github||"",
+       phone:activeInfo?.details?.phone||"",
+       email:activeInfo?.details?.email||"",
+       summary:typeof activeInfo?.detail!==Object?activeInfo.detail:"",
+       other:typeof activeInfo?.detail!==Object?activeInfo.detail:"",
     })
  },[activeSectionKey])
+
+ useEffect(()=>{
+  setActiveInformation(information[sections[activeSectionKey]])
+ },[information])
 
 
   return (
@@ -343,32 +491,25 @@ const otherBody=(
            </div>
             ))}    
         </div>
-
-
         <div className={styles.body}>
         <InputControl label="Title" placeholder="Enter section title" value={sectionTitle} onChange={(event)=>setsectionTitle(event.target.value)}/>
-        
+
         <div className={styles.chips}>
                { activeInformation?.details?
                 activeInformation?.details?.map((item,index)=>(
-            <div className={styles.chip} key={item.title+index}>
-                <p>{sections[activeSectionKey]} {index+1} X</p>
+            <div className={`${styles.chip} ${activeDetailIndex===index?styles.active:""}`} 
+            key={item.title+index} 
+            onClick={()=>setActiveDetailIndex(index)
+            }>
+                <p>
+                    {sections[activeSectionKey]} {index+1} 
+                    </p>
                 {/* <X/> */}
             </div>
               ))
               :" " }
-            {/* <div className={styles.chip}>
-                <p>Project 2 X</p>
-                <X/>
-            </div> */}
         </div>
-
-
-
-
-
         {generateBody()}
-
         <button onClick={handleSubmission}>Save</button>
         </div>
     </div>
